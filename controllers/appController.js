@@ -30,10 +30,40 @@ const mostrar = async (req, res)=>{
 
 }
 
+const borrar = async (req, res)=>{
+
+    const {id} = req.params
+    //console.log(id)
+    
+    try {
+        
+        await Datos.findOneAndDelete({_id: id})
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const actualizar = async (req, res, next)=>{
+
+    const {id } = req.params;
+    const {nombre, telefono, correo, empresa} = req.body;
+    //(Nuveconsole.log(id);
+     //console.log(req.body);
+     await Datos.findOneAndUpdate({_id: id}, {nombre, telefono, correo, empresa}, {new: true});
+
+     return res.status(200).json({msj: ''})
+
+     
+
+}
+
 
 
 
 export  {
     crear,
-    mostrar
+    mostrar,
+    borrar,
+    actualizar
 }
